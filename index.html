@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TWA Equipamentos</title>
+  <meta name="description" content="Site oficial da TWA Equipamentos. Ficha técnica da Esmerilhadeira Angular Dewalt.">
+  <style>
+    /* RESET */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Helvetica Neue";
+    }
+
+    body {
+      background: #f2f4f8;
+      color: #374151;
+      line-height: 1.6;
+    }
+
+    /* TOPO */
+    header {
+      width: 100%;
+      background: #c30000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    .logo-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-top img {
+      width: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px solid #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo-text {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffeaea;
+      transform: scale(1.05);
+    }
+
+    /* CONTEÚDO PRINCIPAL */
+    .content {
+      background: #fff;
+      width: 100%;
+      max-width: 1600px;
+      margin: 30px auto;
+      padding: 50px 40px;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 800;
+      color: #1f2937;
+      letter-spacing: 0.5px;
+      margin-bottom: 30px;
+    }
+
+    /* GALERIA MODERNA */
+    .gallery,
+    .gallery-bottom {
+      display: grid;
+      gap: 16px;
+    }
+
+    .gallery {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .gallery-bottom {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .gallery-item {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item img {
+  width: 100%;
+  height: 200px; /* define altura fixa igual para todas */
+  object-fit: cover; /* garante que a imagem preencha a área sem distorcer */
+  display: block;
+  border-radius: 16px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-20px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+
+    .gallery-item.visible img {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.07) rotate(-1deg);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+    }
+
+    /* NUMERAÇÃO MODERNA */
+    .gallery-item::after {
+      content: attr(data-number);
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: rgba(195, 0, 0, 0.85);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* DESCRIÇÃO E ESPECIFICAÇÕES MODERNAS */
+    .description,
+    .specs {
+      background: #f9fafb;
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid #e5e7eb;
+      transition: all 0.3s ease, opacity 0.8s, transform 0.8s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .description.visible,
+    .specs.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .description:hover,
+    .specs:hover {
+      background: #ffeaea;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .description h3,
+    .specs h3 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: #111827;
+    }
+
+    .description p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #4b5563;
+      margin-bottom: 14px;
+    }
+
+    .specs ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      font-size: 15px;
+    }
+
+    .specs li strong {
+      color: #110e0e;
+    }
+
+    /* MODELO DESTAQUE MODERNO */
+    .model {
+      font-size: 22px;
+      font-weight: 800;
+      color: #111010;
+      text-align: center;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s, transform 0.8s;
+      border: 2px solid #ffffff;
+      padding: 18px 28px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #fff5f5, #ffeaea);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .model.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RODAPÉ MODERNO */
+    footer {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 40px;
+      padding: 40px 20px;
+      background: #111827;
+      color: #fff;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    /* RESPONSIVO */
+    @media(max-width: 1024px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-bottom {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width: 600px) {
+      .gallery,
+      .gallery-bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 30px 20px;
+      }
+
+      .description,
+      .specs {
+        padding: 20px;
+      }
+
+      .model {
+        font-size: 20px;
+        padding: 16px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo-top">
+      <img src="Gemini_Generated_Image_xv8gclxv8gclxv8g.png" alt="Logo TWA Equipamentos">
+      <div class="logo-text">TWA EQUIPAMENTOS</div>
+    </div>
+    <nav>
+      <a href="#descricao">Descrição</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#especificacoes">Especificações</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <div class="title">Esmerilhadeira Angular Dewalt — Ficha Técnica</div>
+
+    <!-- 4 imagens em cima -->
+    <div id="galeria" class="gallery">
+      <div class="gallery-item" data-number="#02"><img src="02.jpg" alt="Lixadeira"></div>
+      <div class="gallery-item" data-number="#03"><img src="03.jpg" alt="Lixadeira"></div>
+      <div class="gallery-item" data-number="#04"><img src="04.jpg" alt="Lixadeira"></div>
+      <div class="gallery-item" data-number="#05"><img src="05.jpg" alt="Lixadeira"></div>
+    </div>
+
+    <!-- 3 imagens embaixo -->
+    <div class="gallery-bottom">
+      <div class="gallery-item" data-number="#06"><img src="06.jpg" alt="Lixadeira"></div>
+      <div class="gallery-item" data-number="#07"><img src="07.jpg" alt="Lixadeirqa"></div>
+      <div class="gallery-item" data-number="#08"><img src="08.jpg" alt="Lixadeira"></div>
+    </div>
+
+    <div id="descricao" class="description">
+      <h3>Descrição</h3>
+      <p>A Esmerilhadeira Angular Dewalt DWE497-B2 7" é uma ferramenta profissional projetada para cortes, desbastes,
+        lixamento e remoção de materiais metálicos, concreto, alvenaria e outros materiais duros. Sua construção robusta
+        e resistente garante alta durabilidade mesmo em trabalhos intensivos e contínuos, sendo indicada para
+        serralheiros, pedreiros, metalúrgicos, construtoras e profissionais da indústria em geral.</p>
+
+      <h3>Recursos adicionais</h3>
+      <p>Ergonomia aprimorada, design compacto para trabalhos em espaços restritos, alta segurança com proteção do eixo
+        e interrupção automática em caso de sobrecarga, compatibilidade com discos padrão de corte e desbaste, ideal
+        para uso contínuo em ambientes profissionais. Cada modelo numerado permite identificar rapidamente sua posição
+        na linha de produção ou estoque, garantindo organização e eficiência.</p>
+
+      <p><strong>Observação:</strong> Cada unidade de lixadeira exibida na galeria possui um número de identificação único,
+        visível no canto superior direito da imagem, permitindo referência rápida para identificação.</p>
+    </div>
+
+    <section class="model">Modelo: DWE497-B2</section>
+
+    <div id="especificacoes" class="specs">
+      <h3>Especificações Técnicas</h3>
+      <ul>
+        <li><strong>Potência:</strong> 2600 W</li>
+        <li><strong>Diâmetro do disco:</strong> 7" (180 mm)</li>
+        <li><strong>Velocidade:</strong> 8500 rpm</li>
+        <li><strong>Peso:</strong> 5.6 kg</li>
+        <li><strong>Marca:</strong> Dewalt</li>
+        <li><strong>Dimensões:</strong> 30 x 10 x 15 cm</li>
+        <li><strong>Empunhadura lateral:</strong> Anti-vibração</li>
+        <li><strong>Guarda de proteção:</strong> Ajustável</li>
+        <li><strong>Interruptor:</strong> Gatilho sem trava</li>
+        <li><strong>Compatibilidade de discos:</strong> Corte e desbaste padrão 7"</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer>
+    © <span id="year"></span> TWA Equipamentos — Todos os direitos reservados
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Animação ao scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.gallery-item, .description, .model, .specs')
+      .forEach(el => observer.observe(el));
+  </script>
+
+</body>
+
+</html>
